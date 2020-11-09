@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en"
+>
+<head>
+  
+  <title>Mad's ATM</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+
+<style>
+#fullpage{
+  font-family: Roboto;
+}
+#myDIV {
+  width: 100%;
+  padding: 50px 0;
+  text-align: center;
+  background-color: lightblue;
+  margin-top: 20px;
+}
+
+#newAccountDIV {
+  width: 100%;
+  padding: 50px 0;
+  text-align: center;
+  background-color: #e83c3c;
+  margin-top: 20px;
+}
+#accountDIV {
+  width: 100%;
+  padding: 50px 0;
+  text-align: center;
+  background-color: lightgreen;
+  margin-top: 20px;
+}
+</style>
+</head>
+<body>
+<div class="container" id="fullpage">
+
+  <h4><b>Note:</b> </h4>
+  <h5>  If you don't have an account, please input your desired PIN and we'll start account setup!</h5>
+<br>
+<h2>Please input your PIN:</h2>
+<button type="button" class="btn btn-dark" onclick="myFunction()">Submit</button>
+
+
+
+<input id="pinput"></input>
+
+
+<div id="accountDIV"> <!--This is Var z-->
+  <h2>Main Menu</h2>
+  <br>
+  <button type="button" class="btn btn-dark" onclick="checkBal()">Check Balance</button>
+  <button type="button" class="btn btn-success" onclick="fundsDeposit()">Deposit</button>
+  <button type="button" class="btn btn-primary" onclick="()">Withdrawal</button>
+  <button type="button" class="btn btn-warning" onclick="()">Change your PIN</button>
+  <button type="button" class="btn btn-danger" onclick="logOut()">Log Out</button>
+  <br>
+  <br>
+  <h4>Please enter your number below:</h4>
+  <input id="mainMenuInput"></input>
+</div>
+<div id="myDIV">  <!--This is Var x-->
+  <p id="message"></p>
+  <p id="message2"></p>
+</div>   
+
+
+
+
+<div id="newAccountDIV"> <!--This is Var y-->
+  <input id="depWithdrawAmt"></input>
+  <button type="button" class="btn btn-dark" onclick="addNewAccount()">Set up new account</button>
+  <p id="account"><p>
+    <p id="account2"><p>  
+
+</div> 
+</div>
+
+<script>
+
+//JAVASCRIPT STARTS HERE:
+
+var x = document.getElementById("myDIV");
+let y = document.getElementById("newAccountDIV");
+let z = document.getElementById("accountDIV");
+x.style.display = "none";
+y.style.display = "none";
+z.style.display = "none";
+
+let bankAccounts = [
+  //pin
+  //balance
+  //0
+  {
+    pin : 1239,
+    balance: 100.00
+  }, 
+  //1 
+  {
+    pin: 3209,
+    balance: 5.00 
+  },
+  //2 
+    {
+    pin: 2345,
+    balance: 205800.00 
+  },
+    {
+    pin: 6542,
+    balance: 163.00 
+  },
+  {
+    pin: 6732,
+    balance: 985.00 
+  },
+];
+
+
+function myFunction() {
+let pin = parseInt(document.getElementById("pinput").value); 
+  for(let i=0; i < bankAccounts.length; i++){
+    if( bankAccounts[i].pin === pin  ){
+      z.style.display="block";
+      x.style.display = "block";
+      y.style.display = "none";
+        document.getElementById("mainMenuInput").value = "";
+        document.getElementById("message").innerHTML = "Welcome Back!";
+        document.getElementById("message2").innerHTML = "";
+        console.log(bankAccounts);
+        return; 
+    }   
+  }
+  z.style.display = "none";
+  x.style.display = "block";
+  document.getElementById("message").innerHTML = "Invald PIN: please re-enter or click below to set up a new account:"; 
+  document.getElementById("message2").innerHTML = "";
+  y.style.display = "block";
+  console.log(bankAccounts);
+  return; 
+};
+
+function addNewAccount() {
+  x.style.display = "none";
+  z.style.display = "none";
+  let depWithdrawAmt = document.getElementById("depWithdrawAmt"); 
+	let pin = parseInt(document.getElementById("pinput").value); 
+  for(let i=0; i < bankAccounts.length; i++){
+    if( bankAccounts[i].pin === pin  ){
+      document.getElementById("account2").innerHTML = "An account with this PIN already exists. Please select another PIN.";   
+     
+      return; 
+    }   
+  }
+  bankAccounts.push({pin: pin, balance: (Number(depWithdrawAmt.value))});
+  z.style.display="block";
+  x.style.display = "block";
+  y.style.display = "none";
+  document.getElementById("message").innerHTML = "Your new account balance is: $" + depWithdrawAmt.value; 
+  document.getElementById("message2").innerHTML = "Thank you for your business!"; 
+  console.log(bankAccounts);
+  document.getElementById("depWithdrawAmt").value = "";
+  return; };
+
+
+ 
+  function checkBal() {
+  let pin = parseInt(document.getElementById("pinput").value); 
+  for(let i=0; i < bankAccounts.length; i++){
+    if( bankAccounts[i].pin === pin  ){
+      z.style.display="block";
+      x.style.display = "block";
+      y.style.display = "none";
+        document.getElementById("message").innerHTML = "Your account balance is: $" + bankAccounts[i].balance; 
+        document.getElementById("message2").innerHTML = "";
+        console.log(bankAccounts);
+        return; 
+      }
+  }
+  };
+
+
+
+  function fundsDeposit(){
+  let depositAmt = parseInt(document.getElementById("mainMenuInput")); 
+  let makeDeposit = document.getElementById("fundsDeposit"); 
+  let pin = parseInt(document.getElementById("pinput").value);
+  let newBalance;
+    
+  for(let i=0; i < bankAccounts.length; i++){
+    if( bankAccounts[i].pin === pin  ){
+      newBalance= (bankAccounts[i].balance + Number(depositAmt));
+      bankAccounts[i].balance=Number(newBalance);
+      document.getElementById("message").innerHTML = "";
+      document.getElementById("mainMenuInput").value = "";
+      document.getElementById("message").innerHTML = "Your new balance is: " + newBalance; 
+      document.getElementById("message2").innerHTML = "";
+      console.log(bankAccounts);
+      return; 
+    }   
+  }
+  //bankAccounts.push({pin: pin, balance: (balance + Number(depWithdrawAmt.value))});
+  //document.getElementById("account").innerHTML = "Your new account balance is: $" + depWithdrawAmt.value; 
+  //document.getElementById("account2").innerHTML = "Thank you for your business!"; 
+ //alert(); 
+ console.log(bankAccounts);
+  return; 
+ 
+};
+
+
+function changePIN() {
+  x.style.display = "none";
+  z.style.display = "none";
+  let newPIN = document.getElementById("mainMenuInput"); 
+	let pin = parseInt(document.getElementById("pinput").value); 
+  for(let i=0; i < bankAccounts.length; i++){
+    if( bankAccounts[i].pin === pin  ){
+      document.getElementById("message").innerHTML = "An account with this PIN already exists. Please select another PIN.";   
+     
+      return; 
+    }   
+  }
+  bankAccounts.push({pin: pin, balance: (Number(depWithdrawAmt.value))});
+  z.style.display="block";
+  x.style.display = "block";
+  y.style.display = "none";
+  document.getElementById("message").innerHTML = "Your new account balance is: $" + depWithdrawAmt.value; 
+  document.getElementById("message2").innerHTML = "Thank you for your business!"; 
+  console.log(bankAccounts);
+  document.getElementById("depWithdrawAmt").value = "";
+  return; };
+
+  
+
+  function logOut() {
+    document.getElementById("depWithdrawAmt").value = "";
+    document.getElementById("pinput").value = "";
+      z.style.display="none";
+      x.style.display = "block";
+      y.style.display = "none";
+        document.getElementById("message").innerHTML = "You are now logged out."; 
+        document.getElementById("message2").innerHTML = "Thanks and have a great day!";
+        console.log(bankAccounts);
+        return; 
+      };
+ /*
+ function makeDep() {
+  let pin = parseInt(document.getElementById("pinput").value); 
+  let depWithdrawAmt = document.getElementById("depWithdrawAmt"); 
+  for(let i=0; i < bankAccounts.length; i++){
+    if( bankAccounts[i].pin === pin  ){
+      z.style.display="block";
+      x.style.display = "block";
+      y.style.display = "none";
+        document.getElementById("message").innerHTML = "Your account balance is: $" + bankAccounts[i].balance; 
+        document.getElementById("message2").innerHTML = "";
+        console.log(bankAccounts);
+        return; 
+      }
+  }
+  };
+*/
+
+//BOOTSTRAP JS and other stuff needed BELOW
+</script>
+  
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+</body>
+</html> 

@@ -56,8 +56,8 @@
   <br>
   <button type="button" class="btn btn-dark" onclick="checkBal()">Check Balance</button>
   <button type="button" class="btn btn-success" onclick="fundsDeposit()">Deposit</button>
-  <button type="button" class="btn btn-primary" onclick="()">Withdrawal</button>
-  <button type="button" class="btn btn-warning" onclick="()">Change your PIN</button>
+  <button type="button" class="btn btn-primary" onclick="fundsWithdraw()">Withdrawal</button>
+  <button type="button" class="btn btn-warning" onclick="changePIN()">Change your PIN</button>
   <button type="button" class="btn btn-danger" onclick="logOut()">Log Out</button>
   <br>
   <br>
@@ -88,6 +88,7 @@
 var x = document.getElementById("myDIV");
 let y = document.getElementById("newAccountDIV");
 let z = document.getElementById("accountDIV");
+let currentAcct = null;
 x.style.display = "none";
 y.style.display = "none";
 z.style.display = "none";
@@ -165,6 +166,8 @@ function addNewAccount() {
   console.log(bankAccounts);
   document.getElementById("depWithdrawAmt").value = "";
   return; };
+
+
  
   function checkBal() {
   let pin = parseInt(document.getElementById("pinput").value); 
@@ -180,21 +183,25 @@ function addNewAccount() {
       }
   }
   };
+
+
+
   function fundsDeposit(){
-  let depositAmt = document.getElementById("mainMenuInput"); 
-  let makeDeposit = document.getElementById("fundsDeposit"); 
+  let depositAmt = parseInt(document.getElementById("mainMenuInput").value); 
   let pin = parseInt(document.getElementById("pinput").value);
   let newBalance;
     
   for(let i=0; i < bankAccounts.length; i++){
     if( bankAccounts[i].pin === pin  ){
-      newBalance= (bankAccounts[i].balance + Number(depositAmt));
-      bankAccounts[i].balance=Number(newBalance);
+      currentAcct=bankAccounts[i];
+      newBalance= bankAccounts[i].balance + depositAmt;
+      bankAccounts[i].balance=newBalance;
       document.getElementById("message").innerHTML = "";
       document.getElementById("mainMenuInput").value = "";
-      document.getElementById("message").innerHTML = "Your new balance is: " + newBalance; 
+      document.getElementById("message").innerHTML = "Your new balance is: $" + newBalance; 
       document.getElementById("message2").innerHTML = "";
       console.log(bankAccounts);
+      console.log(currentAcct);
       return; 
     }   
   }
@@ -206,6 +213,55 @@ function addNewAccount() {
   return; 
  
 };
+
+function fundsWithdraw(){
+  let withdrawAmt = parseInt(document.getElementById("mainMenuInput").value); 
+  let pin = parseInt(document.getElementById("pinput").value);
+  let newBalance;
+    
+  for(let i=0; i < bankAccounts.length; i++){
+    if( bankAccounts[i].pin === pin  ){
+      currentAcct=bankAccounts[i];
+      newBalance= bankAccounts[i].balance - withdrawAmt;
+      bankAccounts[i].balance=newBalance;
+      document.getElementById("message").innerHTML = "";
+      document.getElementById("mainMenuInput").value = "";
+      document.getElementById("message").innerHTML = "Please take your cash."; 
+      document.getElementById("message2").innerHTML = "Your new balance is: $" + newBalance;
+      console.log(bankAccounts);
+      console.log(currentAcct);
+      return; 
+    }   
+  }
+ console.log(bankAccounts);
+  return; 
+ 
+};
+
+
+function changePIN() {
+  x.style.display = "none";
+  z.style.display = "none";
+  let newPIN = parseInt(document.getElementById("mainMenuInput").value); 
+	let pin = parseInt(document.getElementById("pinput").value); 
+  for(let i=0; i < bankAccounts.length; i++){
+    if( bankAccounts[i].pin === pin  ){
+      currentAcct=bankAccounts[i];
+      bankAccounts[i].pin=newPIN;
+      z.style.display="block";
+      x.style.display = "block";
+      y.style.display = "none";
+      document.getElementById("message").innerHTML = "";
+      document.getElementById("mainMenuInput").value = "";
+      document.getElementById("message").innerHTML = "Your new PIN is: " + newPIN; 
+      document.getElementById("message2").innerHTML = "";
+      document.getElementById("pinput").value = newPIN;
+      console.log(bankAccounts);
+      console.log(currentAcct);
+      return; 
+  }
+}};
+
   
 
   function logOut() {
