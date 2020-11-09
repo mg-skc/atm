@@ -44,7 +44,9 @@ function getAccountBal(){
   }
   alert("Invalid Pin!"); 
   return; 
-}
+
+console.log(bankAccounts);
+};
 
 function addNewAccount(){
   let depWithdrawAmt = document.getElementById("depWithdrawAmt"); 
@@ -70,19 +72,20 @@ function addNewAccount(){
 function fundsDeposit(){
   let depWithdrawAmt = document.getElementById("depWithdrawAmt"); 
   let makeDeposit = document.getElementById("makeDeposit"); 
-	let pin = parseInt(document.getElementById("pinput").value); 
+  let pin = parseInt(document.getElementById("pinput").value);
+  let newBalance;
   for(let i=0; i < bankAccounts.length; i++){
     if( bankAccounts[i].pin === pin  ){
-
-      document.getElementById("account2").innerHTML = "An account with this PIN already exists. Please select another PIN.";   
-     
+      newBalance= (bankAccounts[i].balance + Number(depWithdrawAmt));
+      bankAccounts[i].balance=Number(newBalance);
+      document.getElementById("account").innerHTML = "Your new account balance is: " + Number(bankAccounts[i].balance); 
+      console.log(bankAccounts);
       return; 
-    //  return bankAccounts[i]; 
     }   
   }
-  bankAccounts.push({pin: pin, balance: (balance + Number(depWithdrawAmt.value))});
-  document.getElementById("account").innerHTML = "Your new account balance is: $" + depWithdrawAmt.value; 
-  document.getElementById("account2").innerHTML = "Thank you for your business!"; 
+  //bankAccounts.push({pin: pin, balance: (balance + Number(depWithdrawAmt.value))});
+  //document.getElementById("account").innerHTML = "Your new account balance is: $" + depWithdrawAmt.value; 
+  //document.getElementById("account2").innerHTML = "Thank you for your business!"; 
  //alert(); 
  console.log(bankAccounts);
   return; 
