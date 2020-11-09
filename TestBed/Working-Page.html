@@ -19,6 +19,13 @@
   background-color: #e83c3c;
   margin-top: 20px;
 }
+#accountDIV {
+  width: 100%;
+  padding: 50px 0;
+  text-align: center;
+  background-color: lightgreen;
+  margin-top: 20px;
+}
 </style>
 </head>
 <body>
@@ -35,22 +42,37 @@
 
 
 <div id="myDIV">
+  <p id="message"></p>
+  <p id="message2"></p>
+</div>   
+<div id="accountDIV">
+  <h2>Main Menu</h2>
+  <button onclick="checkBal()">Check Balance</button>
+  <button onclick="()">Deposit</button>
+  <button onclick="()">Withdrawal</button>
+  <button onclick="()">Change your PIN</button>
 </div>
 
 
-<p id="account"><p>
-<p id="account2"><p>  
+
 <div id="newAccountDIV"> 
   <input id="depWithdrawAmt"></input>
   <button onclick="addNewAccount()">Set up new account</button>
+  <p id="account"><p>
+    <p id="account2"><p>  
 
 </div> 
 
 <script>
+
+//JAVASCRIPT STARTS HERE:
+
 var x = document.getElementById("myDIV");
 let y = document.getElementById("newAccountDIV");
+let z = document.getElementById("accountDIV");
 x.style.display = "none";
 y.style.display = "none";
+z.style.display = "none";
 
 let bankAccounts = [
   //pin
@@ -79,65 +101,74 @@ let bankAccounts = [
     balance: 985.00 
   },
 ];
-/*
-function getAccountBal(){
-	let pin = parseInt(document.getElementById("pinput").value); 
-  for(let i=0; i < bankAccounts.length; i++){
-    if( bankAccounts[i].pin === pin  ){
-    	document.getElementById("account").innerHTML = "Your account balance is: " + bankAccounts[i].balance; 
-        return; 
-    //  return bankAccounts[i]; 
-    }   
-  }
-  alert("Invalid Pin!"); 
-  return; 
-}
-*/
 
-
-//new code below from W3 Schools
 
 function myFunction() {
-//var x = document.getElementById("myDIV");
-//x.style.display = "none";
 let pin = parseInt(document.getElementById("pinput").value); 
   for(let i=0; i < bankAccounts.length; i++){
     if( bankAccounts[i].pin === pin  ){
-    	x.style.display = "block";
-        document.getElementById("myDIV").innerHTML = "Your account balance is: " + bankAccounts[i].balance; 
-        
+      z.style.display="block";
+      x.style.display = "block";
+      y.style.display = "none";
+        document.getElementById("message").innerHTML = "Welcome Back!";
+        console.log(bankAccounts);
         return; 
-    //  return bankAccounts[i]; 
     }   
   }
+  z.style.display = "none";
   x.style.display = "block";
-  document.getElementById("myDIV").innerHTML = "Invald PIN: please re-enter or click below to set up a new account:"; 
+  document.getElementById("message").innerHTML = "Invald PIN: please re-enter or click below to set up a new account:"; 
   y.style.display = "block";
-  
+  console.log(bankAccounts);
   return; 
 };
 
 function addNewAccount() {
   x.style.display = "none";
+  z.style.display = "none";
   let depWithdrawAmt = document.getElementById("depWithdrawAmt"); 
 	let pin = parseInt(document.getElementById("pinput").value); 
   for(let i=0; i < bankAccounts.length; i++){
     if( bankAccounts[i].pin === pin  ){
-    	//document.getElementById("account").innerHTML = "Your account balance is: " + bankAccounts[i].balance; 
       document.getElementById("account2").innerHTML = "An account with this PIN already exists. Please select another PIN.";   
      
       return; 
-    //  return bankAccounts[i]; 
     }   
   }
   bankAccounts.push({pin: pin, balance: (Number(depWithdrawAmt.value))});
-  document.getElementById("account").innerHTML = "Your new account balance is: $" + depWithdrawAmt.value; 
-  document.getElementById("account2").innerHTML = "Thank you for your business!"; 
- //alert(); 
- console.log(bankAccounts);
+  z.style.display="block";
+  x.style.display = "block";
+  y.style.display = "none";
+  document.getElementById("message").innerHTML = "Your new account balance is: $" + depWithdrawAmt.value; 
+  document.getElementById("message2").innerHTML = "Thank you for your business!"; 
+  console.log(bankAccounts);
+  document.getElementById("depWithdrawAmt").value = "";
+  document.getElementById("pinput").value = "";
   return; };
  
+  function checkBal() {
+  let pin = parseInt(document.getElementById("pinput").value); 
+  for(let i=0; i < bankAccounts.length; i++){
+    if( bankAccounts[i].pin === pin  ){
+      z.style.display="block";
+      x.style.display = "block";
+      y.style.display = "none";
+        document.getElementById("message").innerHTML = "Your account balance is: $" + bankAccounts[i].balance; 
+        document.getElementById("message2").innerHTML = "";
+        console.log(bankAccounts);
+        return; 
+      }
+      /*
+  z.style.display = "none";
+  x.style.display = "block";
+  document.getElementById("message").innerHTML = "Invald PIN: please re-enter or click below to set up a new account:"; 
+  y.style.display = "block";
+  console.log(bankAccounts);
+  return; 
+    };
+    */
+  }}
 </script>
 
 </body>
-</html>
+</html> 
