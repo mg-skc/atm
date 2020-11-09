@@ -5,6 +5,12 @@
 */
 
 //bank account 
+
+var x = document.getElementById("myDIV");
+let y = document.getElementById("newAccountDIV");
+x.style.display = "none";
+y.style.display = "none";
+
 let bankAccounts = [
   //pin
   //balance
@@ -33,6 +39,8 @@ let bankAccounts = [
   },
 ];
 
+
+/*
 function getAccountBal(){
 	let pin = parseInt(document.getElementById("pinput").value); 
   for(let i=0; i < bankAccounts.length; i++){
@@ -44,9 +52,35 @@ function getAccountBal(){
   }
   alert("Invalid Pin!"); 
   return; 
+}
+*/
+
+
+function myFunction() {
+  //var x = document.getElementById("myDIV");
+  //x.style.display = "none";
+  let pin = parseInt(document.getElementById("pinput").value); 
+    for(let i=0; i < bankAccounts.length; i++){
+      if( bankAccounts[i].pin === pin  ){
+        x.style.display = "block";
+          document.getElementById("myDIV").innerHTML = "Your account balance is: " + bankAccounts[i].balance; 
+          
+          return; 
+      //  return bankAccounts[i]; 
+      }   
+    }
+    {
+    x.style.display = "block";
+    document.getElementById("myDIV").innerHTML = "Invald PIN: please re-enter or click below to set up a new account:"; 
+    y.style.display = "block";
+    
+    return; 
+  }
+}:
+  
+
 
 console.log(bankAccounts);
-};
 
 function addNewAccount(){
   let depWithdrawAmt = document.getElementById("depWithdrawAmt"); 
@@ -67,7 +101,7 @@ function addNewAccount(){
  console.log(bankAccounts);
   return; 
  
-};
+}
 
 function fundsDeposit(){
   let depWithdrawAmt = document.getElementById("depWithdrawAmt"); 
@@ -96,3 +130,41 @@ function Update(keyValue, newKey, newValue)
     keyValue.Key = newKey;
     keyValue.Value = newValue; 
   }
+
+
+function getAccountBal(){
+	let pin = parseInt(document.getElementById("pinput").value); 
+  for(let i=0; i < bankAccounts.length; i++){
+    if( bankAccounts[i].pin === pin  ){
+    	document.getElementById("account").innerHTML = "Your account balance is: " + bankAccounts[i].balance; 
+        return; 
+    //  return bankAccounts[i]; 
+    }   
+  }
+  alert("Invalid Pin!"); 
+  return; 
+};
+
+
+/*
+//new code below from W3 Schools
+function myFunction() {
+  //var x = document.getElementById("myDIV");
+  //x.style.display = "none";
+  let pin = parseInt(document.getElementById("pinput").value); 
+    for(let i=0; i < bankAccounts.length; i++){
+      if( bankAccounts[i].pin === pin  ){
+        x.style.display = "block";
+          document.getElementById("myDIV").innerHTML = "Your account balance is: " + bankAccounts[i].balance; 
+          
+          return; 
+      //  return bankAccounts[i]; 
+      }   
+    }
+    x.style.display = "block";
+    document.getElementById("myDIV").innerHTML = "Invald PIN: please re-enter or click below to set up a new account:"; 
+    y.style.display = "block";
+    
+    return; 
+  }
+  */
