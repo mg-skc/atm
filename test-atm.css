@@ -1,0 +1,44 @@
+
+
+body {
+   background: url(assets/jan-antonin-kolar-Sc5HUu4XzTk-unsplash.jpg) no-repeat center center fixed;
+   -webkit-background-size: cover;
+   -moz-background-size: cover;
+   background-size: cover;
+   -o-background-size: cover;
+ }
+
+ #card {
+   background-color: #02376d;
+}
+.top-of-page {
+    color:white;
+    
+}
+
+#fullpage{
+   font-family: Roboto;
+   color: white;
+ }
+ #myDIV {
+   width: 100%;
+   padding: 50px 0;
+   text-align: center;
+   background-color: #02376d;
+   margin-top: 20px;
+ }
+ 
+ #newAccountDIV {
+   width: 100%;
+   padding: 50px 0;
+   text-align: center;
+   background-color: #ad1414;
+   margin-top: 20px;
+ }
+ #accountDIV {
+   width: 100%;
+   padding: 50px 0;
+   text-align: center;
+   background-color: #02376d;
+   margin-top: 20px;
+ }

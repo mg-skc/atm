@@ -2,48 +2,29 @@
 <html lang="en"
 >
 <head>
-  
   <title>Mad's ATM</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="test-atm.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 
-<style>
-#fullpage{
-  font-family: Roboto;
-}
-#myDIV {
-  width: 100%;
-  padding: 50px 0;
-  text-align: center;
-  background-color: lightblue;
-  margin-top: 20px;
-}
 
-#newAccountDIV {
-  width: 100%;
-  padding: 50px 0;
-  text-align: center;
-  background-color: #e83c3c;
-  margin-top: 20px;
-}
-#accountDIV {
-  width: 100%;
-  padding: 50px 0;
-  text-align: center;
-  background-color: lightgreen;
-  margin-top: 20px;
-}
-</style>
 </head>
 <body>
 <div class="container" id="fullpage">
-
-  <h4><b>Note:</b> </h4>
-  <h5>  If you don't have an account, please input your desired PIN and we'll start account setup!</h5>
+  <div class="col"></div>
+  <div class="card border-0 shadow text-white col-7" id="card">
+    <div class="card-body p-5">
+  <div class="row">
+  </div>
+<div class="row">
+<div class="column-md-1"></div>
+<div class="column-md-3 panel panel-primary">
+<h2>Please Log In</h2>
+<h5>(or input a new PIN </h5>
+<h5 >to set up a new account):</h5>
 <br>
-<h2>Please input your PIN:</h2>
 <button type="button" class="btn btn-dark" onclick="myFunction()">Submit</button>
 
 
@@ -54,15 +35,22 @@
 <div id="accountDIV"> <!--This is Var z-->
   <h2>Main Menu</h2>
   <br>
-  <button type="button" class="btn btn-dark" onclick="checkBal()">Check Balance</button>
+  <div class="text-center">
+  <button type="button" class="btn btn-secondary" onclick="checkBal()">Check Balance</button>
+  <button type="button" class="btn btn-danger" onclick="logOut()">Log Out</button>
+</div>
+  <br> <br>
+  <div class="text-center">
   <button type="button" class="btn btn-success" onclick="fundsDeposit()">Deposit</button>
   <button type="button" class="btn btn-primary" onclick="fundsWithdraw()">Withdrawal</button>
   <button type="button" class="btn btn-warning" onclick="changePIN()">Change your PIN</button>
-  <button type="button" class="btn btn-danger" onclick="logOut()">Log Out</button>
+  </div>
   <br>
   <br>
-  <h4>Please enter your number below:</h4>
+  <div class="text-center">
+  <h4>Enter number:</h4>
   <input id="mainMenuInput"></input>
+</div>
 </div>
 <div id="myDIV">  <!--This is Var x-->
   <p id="message"></p>
@@ -80,7 +68,12 @@
 
 </div> 
 </div>
-
+<div class="col">
+</div>
+</div>
+</div>
+</div>
+</div>
 <script>
 
 //JAVASCRIPT STARTS HERE:
@@ -92,6 +85,9 @@ let currentAcct = null;
 x.style.display = "none";
 y.style.display = "none";
 z.style.display = "none";
+document.getElementById("message").innerHTML = "";
+document.getElementById("message2").innerHTML = "";
+
 
 let bankAccounts = [
   //pin
@@ -130,7 +126,7 @@ let pin = parseInt(document.getElementById("pinput").value);
       x.style.display = "block";
       y.style.display = "none";
         document.getElementById("mainMenuInput").value = "";
-        document.getElementById("message").innerHTML = "Welcome Back!";
+        document.getElementById("message").innerHTML = "";
         document.getElementById("message2").innerHTML = "";
         console.log(bankAccounts);
         return; 
@@ -223,6 +219,27 @@ function fundsWithdraw(){
     if( bankAccounts[i].pin === pin  ){
       currentAcct=bankAccounts[i];
       newBalance= bankAccounts[i].balance - withdrawAmt;
+      }
+      if(newBalance<0){
+        document.getElementById("message").innerHTML = ""; 
+        document.getElementById("mainMenuInput").value = "";
+        document.getElementById("message2").innerHTML = "";
+        document.getElementById("message").innerHTML = "Your withdrawal is more than your balance."; 
+        return;
+      }
+     
+      if (newBalance>=0) {
+      bankAccounts[i].balance=newBalance;
+      document.getElementById("message").innerHTML = "";
+      document.getElementById("mainMenuInput").value = "";
+      document.getElementById("message").innerHTML = "Please take your cash."; 
+      document.getElementById("message2").innerHTML = "Your new balance is: $" + newBalance;
+      console.log(bankAccounts);
+      console.log(currentAcct);
+      return;
+      }
+    /*
+      else{
       bankAccounts[i].balance=newBalance;
       document.getElementById("message").innerHTML = "";
       document.getElementById("mainMenuInput").value = "";
@@ -231,11 +248,10 @@ function fundsWithdraw(){
       console.log(bankAccounts);
       console.log(currentAcct);
       return; 
-    }   
+      }
   }
- console.log(bankAccounts);
-  return; 
- 
+ */
+  }
 };
 
 
@@ -291,6 +307,36 @@ function changePIN() {
       }
   }
   };
+
+#fullpage{
+  font-family: Roboto;
+}
+#myDIV {
+  width: 100%;
+  padding: 50px 0;
+  text-align: center;
+  background-color: lightblue;
+  margin-top: 20px;
+}
+
+#newAccountDIV {
+  width: 100%;
+  padding: 50px 0;
+  text-align: center;
+  background-color: #e83c3c;
+  margin-top: 20px;
+}
+#accountDIV {
+  width: 100%;
+  padding: 50px 0;
+  text-align: center;
+  background-color: lightgreen;
+  margin-top: 20px;
+}
+
+
+
+
 */
 
 //BOOTSTRAP JS and other stuff needed BELOW
