@@ -22,23 +22,23 @@ body {
  }
  #myDIV {
    width: 100%;
-   padding: 50px 0;
+   padding: 30px 0;
    text-align: center;
    background-color: #02376d;
-   margin-top: 20px;
+   margin-top: 10px;
  }
  
  #newAccountDIV {
    width: 100%;
-   padding: 50px 0;
+   padding: 30px 0;
    text-align: center;
    background-color: #ad1414;
-   margin-top: 20px;
+   margin-top: 10px;
  }
  #accountDIV {
    width: 100%;
-   padding: 50px 0;
+   padding: 30px 0;
    text-align: center;
    background-color: #02376d;
-   margin-top: 20px;
+   margin-top: 10px;
  }
